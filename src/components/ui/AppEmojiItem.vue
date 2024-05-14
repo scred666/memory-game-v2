@@ -50,9 +50,9 @@ const props = defineProps({
 
 const { EMOJI, PUBLIC_ID } = EMOJI_ITEM_KEYS
 
-const emit = defineEmits({
-  'update:model-value': null
-})
+const emit = defineEmits<{
+  'update:model-value': [value: string[]]
+}>()
 
 const localValue = computed<string[]>({
   get: (): string[] => props.modelValue,
@@ -114,7 +114,7 @@ const isShowEmoji = computed(() => {
 }
 
 .aei-ContentBack {
-  background-color: #2fffb2;
   transform: rotateY(180deg);
+  background-color: var(--color);
 }
 </style>

@@ -148,7 +148,13 @@ export const EMOJI_LIST: string[] = [
   '😝',
   '👶',
   '😱',
-  '🙈'
+  '🙈',
+  '🌸',
+  '🍕',
+  '🎈',
+  '🚀',
+  '🍦',
+  '🎁'
 ]
 
 export enum EMOJI_ITEM_KEYS {

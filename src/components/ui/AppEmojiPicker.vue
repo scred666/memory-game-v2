@@ -1,5 +1,5 @@
 <template>
-  <div class="aip-Picker">
+  <div :style="{ '--color': `var(${currentDifficult.color})` }" class="aip-Picker">
     <AppEmojiItem
       v-for="item in normalizedEmojiList"
       :key="item[PUBLIC_ID]"
@@ -9,13 +9,15 @@
       :item="item"
     />
   </div>
-  <button @click="reshuffle">+</button>
+  <ReplayButton @click="replay" />
 </template>
 
 <script lang="ts" setup>
-import { computed, type ComputedRef, ref, watch } from 'vue'
+import { computed, type ComputedRef, type PropType, ref, watch } from 'vue'
 
 import AppEmojiItem from '@/components/ui/AppEmojiItem.vue'
+import ReplayButton from '@/components/ui/ReplayButton.vue'
+import { type Difficult, DIFFICULTY_KEYS } from '@/utils/difficult-switcher'
 import { EMOJI_ITEM_KEYS, EMOJI_LIST, type EmojiItem } from '@/utils/emoji'
 import { shuffleArray } from '@/utils/helpers'
 import { uid } from '@/utils/uid'
@@ -24,12 +26,26 @@ defineOptions({
   name: 'AppEmojiPicker'
 })
 
+const props = defineProps({
+  currentDifficult: {
+    type: Object as PropType<Difficult>,
+    required: true
+  }
+})
+
 const { PUBLIC_ID, PRIVATE_ID } = EMOJI_ITEM_KEYS
 
-const emojiList = ref<string[]>(EMOJI_LIST)
+const emojiList = ref<string[]>([...EMOJI_LIST])
+
+const listByDifficult = computed(() => {
+  return shuffleArray(emojiList.value).slice(0, props.currentDifficult[DIFFICULTY_KEYS.COUNT])
+}) as ComputedRef<string[]>
 
 const normalizedEmojiList = computed(() => {
-  const enrichedList = emojiList.value.flatMap(emoji => {
+  if (isGameWin.value) {
+    return []
+  }
+  const enrichedList = listByDifficult.value.flatMap(emoji => {
     const privateId = uid()
     const item = {
       emoji,
@@ -51,8 +67,11 @@ const normalizedEmojiList = computed(() => {
   return shuffleArray(enrichedList)
 }) as ComputedRef<EmojiItem[]>
 
-const reshuffle = (): void => {
-  emojiList.value = shuffleArray(emojiList.value)
+const replay = (): void => {
+  resetState()
+  setTimeout(() => {
+    emojiList.value = shuffleArray(emojiList.value)
+  }, 500)
 }
 
 const selectedItems = ref<string[]>([])
@@ -72,8 +91,14 @@ const isDisabled = ({ item }: { item: EmojiItem }): boolean => {
 const solvedItems = ref<string[]>([])
 
 const isGameWin = computed(() => {
-  return solvedItems.value.length === emojiList.value.length
+  return solvedItems.value.length === listByDifficult.value.length
 }) as ComputedRef<boolean>
+
+watch(isGameWin, newValue => {
+  if (newValue) {
+    console.log('win')
+  }
+})
 
 watch(selectedItems, () => {
   if (isSelectionComplete.value) {
@@ -94,13 +119,25 @@ watch(selectedItems, () => {
     }, 500)
   }
 })
+
+const resetState = (): void => {
+  selectedItems.value = []
+  solvedItems.value = []
+}
+
+watch(
+  () => props.currentDifficult,
+  () => {
+    resetState()
+  }
+)
 </script>
 
 <style scoped>
 .aip-Picker {
+  justify-content: center;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   gap: 12px;
 }
 </style>
