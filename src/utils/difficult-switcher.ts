@@ -1,10 +1,10 @@
 import { EMOJI_LIST } from '@/utils/emoji'
 
-export enum DIFFICULTY_KEYS {
-  COLOR = 'color',
-  COUNT = 'count',
-  NAME = 'name'
-}
+export const DIFFICULTY_KEYS = {
+  COLOR: 'color',
+  COUNT: 'count',
+  NAME: 'name'
+} as const
 
 const { COLOR, COUNT, NAME } = DIFFICULTY_KEYS
 
@@ -40,4 +40,4 @@ export const DIFFICULTIES: Record<string, Difficult> = {
     [COUNT]: EMOJI_LIST.length,
     [NAME]: 'Survival'
   }
-}
+} as const
