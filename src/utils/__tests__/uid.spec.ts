@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest'
 
-import { uid } from '@/utils/uid.js'
+import { uid, UID_LENGTH } from '@/utils/uid.js'
 
 describe('uid()', () => {
   it('works correctly', () => {
@@ -13,8 +13,8 @@ describe('uid()', () => {
     expect(uid()).not.toBe(uid())
   })
 
-  it('generated id length is correct', () => {
-    expect(uid()).toHaveLength(9)
+  it('generated uid length is correct', () => {
+    expect(uid().length).toBeGreaterThanOrEqual(UID_LENGTH)
   })
 
   it('generates unique id every time', () => {

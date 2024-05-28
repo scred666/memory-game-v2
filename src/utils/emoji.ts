@@ -1,4 +1,4 @@
-export const EMOJI_LIST: string[] = [
+export const EMOJI_LIST: readonly string[] = [
   '🎄',
   '😰',
   '🐝',
@@ -155,13 +155,13 @@ export const EMOJI_LIST: string[] = [
   '🚀',
   '🍦',
   '🎁'
-]
+] as const
 
-export enum EMOJI_ITEM_KEYS {
-  EMOJI = 'emoji',
-  PUBLIC_ID = 'publicId',
-  PRIVATE_ID = 'privateId'
-}
+export const EMOJI_ITEM_KEYS = {
+  EMOJI: 'emoji',
+  PUBLIC_ID: 'publicId',
+  PRIVATE_ID: 'privateId'
+} as const
 
 const { EMOJI, PUBLIC_ID, PRIVATE_ID } = EMOJI_ITEM_KEYS
 
