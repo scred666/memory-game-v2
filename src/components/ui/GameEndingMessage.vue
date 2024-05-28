@@ -1,15 +1,19 @@
 <template>
-  <WinMessage />
+  <GameEndingMessage>
+    <slot> 🎉 Congratulations! 🥳</slot>
+  </GameEndingMessage>
 </template>
 
 <script lang="ts" setup>
+import type { Component } from 'vue'
+import type { SetupContext } from 'vue'
 import type { ComponentInternalInstance } from 'vue'
-import { getCurrentInstance, h, VNode } from 'vue'
+import { getCurrentInstance, h, type VNode } from 'vue'
 
 import ReplayButton from '@/components/ui/ReplayButton.vue'
 
 defineOptions({
-  name: 'WinMessage'
+  name: 'GameEndingMessage'
 })
 
 const emit = defineEmits<{
@@ -20,7 +24,7 @@ const onClick = (): void => {
   emit('replay')
 }
 
-const WinMessage = () => {
+const GameEndingMessage = (_: Component, { slots }: SetupContext) => {
   const currentInstance = getCurrentInstance() as ComponentInternalInstance
   const vnode = currentInstance.vnode as VNode
   const { scopeId } = vnode
@@ -29,22 +33,22 @@ const WinMessage = () => {
   return h(
     'div',
     {
-      class: 'wm-Message'
+      class: 'gem-Message'
     },
     h(
       'div',
       {
         ...scopeIdAttribute,
-        class: 'wm-Message_Content'
+        class: 'gem-Message_Content'
       },
       [
         h(
           'div',
           {
             ...scopeIdAttribute,
-            class: 'wm-Message_Title'
+            class: 'gem-Message_Title'
           },
-          '🎉 Congratulations! 🥳'
+          slots.default?.()
         ),
 
         h(ReplayButton, {
@@ -57,7 +61,7 @@ const WinMessage = () => {
 </script>
 
 <style scoped>
-.wm-Message {
+.gem-Message {
   position: fixed;
   height: 100vh;
   width: 100vw;
@@ -71,16 +75,16 @@ const WinMessage = () => {
   align-items: center;
 }
 
-.wm-Message_Content {
+.gem-Message_Content {
   gap: 20px;
   align-items: center;
   display: flex;
   flex-direction: column;
 }
 
-.wm-Message_Title {
+.gem-Message_Title {
   font-size: 40px;
-  color: var(--vt-green);
+  color: var(--theme-color, var(--vt-green));
   font-weight: bold;
   height: 100%;
 }

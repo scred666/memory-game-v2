@@ -30,7 +30,7 @@ const onClick = (e: MouseEvent) => {
 
 <style lang="scss" scoped>
 .rb-Button {
-  background-color: var(--vt-green);
+  background-color: var(--theme-color, var(--vt-green));
   border: none;
   color: var(--vt-c-black);
   font-size: 18px;
@@ -51,14 +51,14 @@ const onClick = (e: MouseEvent) => {
   @media (any-hover: hover) {
     &:not(&:disabled) {
       &:hover {
-        background-color: hsl(from var(--vt-green) h s calc(l - 0.15));
+        background-color: hsl(from var(--theme-color, var(--vt-green)) h s calc(l - 0.15));
       }
     }
   }
 
   &:active {
     &:not(&:disabled) {
-      background-color: hsl(from var(--vt-green) h s calc(l - 0.3));
+      background-color: hsl(from var(--theme-color, var(--vt-green)) h s calc(l - 0.3));
     }
   }
 }
