@@ -23,9 +23,13 @@
     />
   </div>
 
-  <transition-group name="win">
+  <transition-group name="end-message">
     <GameEndingMessage v-if="isGameWin" @replay="replay" />
-    <GameEndingMessage v-else-if="isGameLose" style="--theme-color: var(--vt-red)" @replay="replay">
+    <GameEndingMessage
+      v-else-if="isGameLose"
+      style="--theme-color: var(--vt-c-red)"
+      @replay="replay"
+    >
       😔 Game Over 🤬
     </GameEndingMessage>
   </transition-group>
@@ -175,34 +179,76 @@ const availableAttempts = computed(() => {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
+  max-width: 1320px;
+  margin-inline: auto;
+
+  @include media(
+    (
+      padding-inline: (
+        0: 16px,
+        768: 32px
+      )
+    )
+  );
 }
 
 .aem-Toolbar {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 40px;
+
+  @include media(
+    (
+      gap: (
+        0: 16px,
+        768: 40px
+      )
+    )
+  );
+
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: hsl(from var(--color-background) h s l / 70%);
+  backdrop-filter: blur(5px);
+  padding-block: 16px;
 }
 
 .aep-Toolbar_Counter {
-  font-size: 18px;
   text-transform: uppercase;
   font-weight: bold;
-  min-width: 100px;
   text-align: center;
+
+  @include media(
+    (
+      font-size: (
+        0: 12px,
+        768: 18px
+      )
+    )
+  );
+
+  @include media(
+    (
+      min-width: (
+        0: 60px,
+        768: 100px
+      )
+    )
+  );
 }
 
 .aep-Toolbar_Button {
   --padding: 10px 16px 10px 20px;
 }
 
-.win-enter-active,
-.win-leave-active {
+.end-message-enter-active,
+.end-message-leave-active {
   transition: 0.2s;
 }
 
-.win-enter-from,
-.win-leave-to {
+.end-message-enter-from,
+.end-message-leave-to {
   opacity: 0;
   transform: scale(1.15);
 }

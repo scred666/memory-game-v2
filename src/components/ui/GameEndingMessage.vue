@@ -60,19 +60,20 @@ const GameEndingMessage = (_: Component, { slots }: SetupContext) => {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .gem-Message {
   position: fixed;
   height: 100vh;
   width: 100vw;
   top: 0;
   left: 0;
-  background-color: rgba(var(--vt-c-black-rgb), 0.8);
+  background-color: hsl(from var(--vt-c-black) h s l / 80%);
   backdrop-filter: blur(5px);
   z-index: 1;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 24px;
 }
 
 .gem-Message_Content {
@@ -83,8 +84,9 @@ const GameEndingMessage = (_: Component, { slots }: SetupContext) => {
 }
 
 .gem-Message_Title {
-  font-size: 40px;
-  color: var(--theme-color, var(--vt-green));
+  font-size: clamp(24px, calc(100vw / 15), 40px);
+
+  color: var(--theme-color, var(--vt-c-green));
   font-weight: bold;
   height: 100%;
 }
