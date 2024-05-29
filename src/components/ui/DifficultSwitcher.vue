@@ -1,23 +1,27 @@
 <template>
   <div class="ds-Switcher">
-    <template v-for="difficult in Object.values(DIFFICULTIES)" :key="difficult[COLOR]">
+    <div
+      v-for="(difficult, index) in Object.values(DIFFICULTIES)"
+      :key="difficult[COLOR]"
+      class="ds-Switcher_Item"
+    >
       <input
         :id="createId({ difficult })"
         v-model="localValue"
         :value="difficult[NAME]"
-        class="ds-Switcher_Input"
+        class="ds-ItemInput"
         hidden
         name="difficult-switcher"
         type="radio"
       />
       <label
         :for="createId({ difficult })"
-        :style="{ '--color': `var(${difficult[COLOR]})` }"
-        class="ds-Switcher_Label"
+        :style="{ '--color': `var(${difficult[COLOR]})`, '--index': index + 1 }"
+        class="ds-ItemLabel"
       >
         {{ difficult[NAME] }}
       </label>
-    </template>
+    </div>
   </div>
 </template>
 
@@ -58,17 +62,43 @@ const localValue = computed<string>({
 
 <style lang="scss" scoped>
 .ds-Switcher {
-  display: flex;
   justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 10px;
+  text-align: center;
 }
 
-.ds-Switcher_Label {
+.ds-Switcher_Item {
+  @include media(
+    (
+      min-width: (
+        0: 100px,
+        400: 120px,
+        500: unset
+      )
+    )
+  );
+}
+
+.ds-ItemLabel {
   color: var(--color);
-  font-size: 16px;
+  display: inline-block;
+  width: 100%;
+
+  @include media(
+    (
+      font-size: (
+        0: 14px,
+        768: 16px
+      )
+    )
+  );
+
   text-transform: uppercase;
   padding: 8px 20px;
   font-weight: bold;
-  transition: cubic-bezier(0.17, 0.67, 0.83, 0.67) 0.2s;
+  transition: var(--base-transtion);
   cursor: pointer;
 
   .ds-Switcher:hover & {
@@ -84,9 +114,43 @@ const localValue = computed<string>({
   }
 }
 
-.ds-Switcher_Input {
-  &:checked + .ds-Switcher_Label {
-    box-shadow: inset 0 -4px 0 var(--color);
+.ds-ItemInput {
+  &:checked + .ds-ItemLabel {
+    @include media(
+      (
+        box-shadow: (
+          0: var(--color),
+          500: inset 0 -4px 0 var(--color)
+        )
+      )
+    );
+
+    @include media(
+      (
+        border-radius: (
+          0: 6px,
+          500: 0
+        )
+      )
+    );
+
+    @include media(
+      (
+        background-color: (
+          0: var(--color),
+          500: initial
+        )
+      )
+    );
+
+    @include media(
+      (
+        color: (
+          0: var(--color-background),
+          500: var(--color)
+        )
+      )
+    );
   }
 }
 </style>

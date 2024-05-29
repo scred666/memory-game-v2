@@ -27,9 +27,19 @@ const difficultOptions = computed(() => {
 }) as ComputedRef<Difficult>
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .ml-Layout {
   display: grid;
-  gap: 32px;
+  gap: 16px;
+  padding: 32px;
+
+  @include media(
+    (
+      padding: (
+        0: 24px,
+        768: 32px
+      )
+    )
+  );
 }
 </style>

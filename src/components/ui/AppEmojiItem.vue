@@ -68,13 +68,19 @@ const isShowEmoji = computed(() => {
 
 <style lang="scss" scoped>
 .aei-Item {
-  width: 80px;
-  height: 80px;
   cursor: pointer;
   perspective: 1000px;
   display: flex;
-  font-size: 40px;
   color: initial;
+
+  font-size: clamp(24px, calc(100vw / 15), 40px);
+
+  $min-size: 50px;
+  $max-size: 80px;
+  $preferred-size: calc(100vw / 8);
+
+  width: clamp(#{$min-size}, #{$preferred-size}, #{$max-size});
+  height: clamp(#{$min-size}, #{$preferred-size}, #{$max-size});
 }
 
 .aei-Item_Content {
@@ -82,7 +88,7 @@ const isShowEmoji = computed(() => {
   width: 100%;
   height: 100%;
   text-align: center;
-  transition: cubic-bezier(0.17, 0.67, 0.83, 0.67) 0.2s;
+  transition: var(--base-transtion);
   transform-style: preserve-3d;
 
   .aei-Item-active & {
@@ -99,7 +105,6 @@ const isShowEmoji = computed(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2.5rem;
   border-radius: 12px;
 }
 

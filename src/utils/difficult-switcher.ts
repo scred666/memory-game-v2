@@ -28,28 +28,28 @@ const calculateQuantities = (n: number): Pick<Difficult, 'attempts' | 'count'> =
 
 export const DIFFICULTIES: Record<string, Difficult> = {
   EASY: {
-    [COLOR]: '--vt-green',
+    [COLOR]: '--vt-c-green',
     [NAME]: 'Easy',
     [COUNT]: 12,
     [ATTEMPTS]: 40
   },
   MEDIUM: {
-    [COLOR]: '--vt-yellow',
+    [COLOR]: '--vt-c-yellow',
     [NAME]: 'Medium',
     ...calculateQuantities(24)
   },
   HARD: {
-    [COLOR]: '--vt-orange',
+    [COLOR]: '--vt-c-orange',
     [NAME]: 'Hard',
     ...calculateQuantities(36)
   },
   INSANE: {
-    [COLOR]: '--vt-orange-dark',
+    [COLOR]: '--vt-c-orange-dark',
     [NAME]: 'Insane',
     ...calculateQuantities(48)
   },
   SURVIVAL: {
-    [COLOR]: '--vt-red',
+    [COLOR]: '--vt-c-red',
     [NAME]: 'Survival',
     ...calculateQuantities(EMOJI_LIST.length)
   }

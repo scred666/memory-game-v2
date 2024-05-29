@@ -30,10 +30,18 @@ const onClick = (e: MouseEvent) => {
 
 <style lang="scss" scoped>
 .rb-Button {
-  background-color: var(--theme-color, var(--vt-green));
+  font-family: var(--font-family);
+  background-color: var(--theme-color, var(--vt-c-green));
   border: none;
-  color: var(--vt-c-black);
-  font-size: 18px;
+  color: var(--color-background);
+  @include media(
+    (
+      font-size: (
+        0: 14px,
+        768: 18px
+      )
+    )
+  );
   padding: var(--padding, 10px 16px);
   line-height: 1;
   font-weight: bold;
@@ -42,23 +50,30 @@ const onClick = (e: MouseEvent) => {
 
   &:disabled {
     background-color: var(--vt-c-black-soft);
-    color: var(--vt-c-text-dark-2);
+    color: var(--color-text);
     cursor: not-allowed;
   }
 
-  transition: cubic-bezier(0.17, 0.67, 0.83, 0.67) 0.2s;
+  transition: var(--base-transtion);
 
   @media (any-hover: hover) {
     &:not(&:disabled) {
       &:hover {
-        background-color: hsl(from var(--theme-color, var(--vt-green)) h s calc(l - 0.15));
+        background-color: hsl(from var(--theme-color, var(--vt-c-green)) h s calc(l - 8));
+        @-moz-document url-prefix() {
+          background-color: var(--theme-color, var(--vt-c-green));
+        }
       }
     }
   }
 
   &:active {
     &:not(&:disabled) {
-      background-color: hsl(from var(--theme-color, var(--vt-green)) h s calc(l - 0.3));
+      background-color: hsl(from var(--theme-color, var(--vt-c-green)) h s calc(l - 15));
+
+      @-moz-document url-prefix() {
+        background-color: var(--theme-color, var(--vt-c-green));
+      }
     }
   }
 }
