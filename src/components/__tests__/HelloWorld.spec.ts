@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest'
 /*
 import { mount } from '@vue/test-utils'
 import { describe, it, expect } from 'vitest'
@@ -11,3 +12,9 @@ describe('HelloWorld', () => {
   })
 })
 */
+
+describe('Fake test', () => {
+  it('should pass', () => {
+    expect(true).toBe(true)
+  })
+})

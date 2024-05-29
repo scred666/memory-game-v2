@@ -98,7 +98,7 @@ const localValue = computed<string>({
   text-transform: uppercase;
   padding: 8px 20px;
   font-weight: bold;
-  transition: cubic-bezier(0.17, 0.67, 0.83, 0.67) 0.2s;
+  transition: var(--base-transtion);
   cursor: pointer;
 
   .ds-Switcher:hover & {

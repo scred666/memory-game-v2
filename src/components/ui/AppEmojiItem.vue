@@ -73,40 +73,14 @@ const isShowEmoji = computed(() => {
   display: flex;
   color: initial;
 
-  // @include media(
-  //   (
-  //     font-size: (
-  //       0: 24px,
-  //       768: 40px
-  //     )
-  //   )
-  // );
-
   font-size: clamp(24px, calc(100vw / 15), 40px);
-  /*  @include media(
-      (
-        width: (
-          0: 50px,
-          768: 80px
-        )
-      )
-    );
 
-    @include media(
-      (
-        height: (
-          0: 50px,
-          768: 80px
-        )
-      )
-    );*/
+  $min-size: 50px;
+  $max-size: 80px;
+  $preferred-size: calc(100vw / 8);
 
-  min-width: 50px;
-  max-width: 80px;
-  min-height: 50px;
-  max-height: 80px;
-  width: calc(100vw / 8);
-  height: calc(100vw / 8);
+  width: clamp(#{$min-size}, #{$preferred-size}, #{$max-size});
+  height: clamp(#{$min-size}, #{$preferred-size}, #{$max-size});
 }
 
 .aei-Item_Content {
@@ -114,7 +88,7 @@ const isShowEmoji = computed(() => {
   width: 100%;
   height: 100%;
   text-align: center;
-  transition: cubic-bezier(0.17, 0.67, 0.83, 0.67) 0.2s;
+  transition: var(--base-transtion);
   transform-style: preserve-3d;
 
   .aei-Item-active & {

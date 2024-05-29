@@ -54,7 +54,7 @@ const onClick = (e: MouseEvent) => {
     cursor: not-allowed;
   }
 
-  transition: cubic-bezier(0.17, 0.67, 0.83, 0.67) 0.2s;
+  transition: var(--base-transtion);
 
   @media (any-hover: hover) {
     &:not(&:disabled) {

@@ -19,6 +19,7 @@
 
 
     --main-font: "Outfit", sans-serif;
+    --base-transtion: cubic-bezier(0.17, 0.67, 0.83, 0.67) 0.2s;
 }
 
 /* semantic color variables for this project */
