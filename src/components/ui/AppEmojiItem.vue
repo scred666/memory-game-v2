@@ -1,5 +1,9 @@
 <template>
-  <label :class="{ 'aei-Item-active': isShowEmoji }" class="aei-Item">
+  <label
+    :class="{ 'aei-Item-active': isShowEmoji }"
+    :data-test-id="APP_TEST_IDS.EMOJI_ITEM_LABEL"
+    class="aei-Item"
+  >
     <span class="aei-Item_Content">
       <span class="aei-ContentFront" />
       <span class="aei-ContentBack">
@@ -11,6 +15,7 @@
 
     <input
       v-model="localValue"
+      :data-test-id="APP_TEST_IDS.EMOJI_ITEM_INPUT"
       :disabled="isDisabled"
       :value="item[PUBLIC_ID]"
       hidden
@@ -23,6 +28,7 @@
 import { computed, type ComputedRef, type PropType } from 'vue'
 
 import { EMOJI_ITEM_KEYS, type EmojiItem } from '@/utils/emoji'
+import { APP_TEST_IDS } from '@/utils/tests-helpers'
 
 defineOptions({
   name: 'AppEmojiItem'
