@@ -1,5 +1,5 @@
 import { EMOJI_LIST } from '@/utils/emoji'
-import { roundUp } from '@/utils/helpers'
+import { roundUp } from '@/utils/round-up'
 
 export const DIFFICULTY_KEYS = {
   COLOR: 'color',

@@ -8,6 +8,7 @@
       <input
         :id="createId({ difficult })"
         v-model="localValue"
+        :data-test-id="APP_TEST_IDS.DIFFICULT_SWITCHER_INPUT"
         :value="difficult[NAME]"
         class="ds-ItemInput"
         hidden
@@ -15,6 +16,7 @@
         type="radio"
       />
       <label
+        :data-test-id="APP_TEST_IDS.DIFFICULT_SWITCHER_LABEL"
         :for="createId({ difficult })"
         :style="{ '--color': `var(${difficult[COLOR]})`, '--index': index + 1 }"
         class="ds-ItemLabel"
@@ -29,6 +31,7 @@
 import { computed, type PropType } from 'vue'
 
 import { DIFFICULTIES, type Difficult, DIFFICULTY_KEYS } from '@/utils/difficult-switcher'
+import { APP_TEST_IDS } from '@/utils/tests-helpers'
 
 const { COLOR, NAME } = DIFFICULTY_KEYS
 
