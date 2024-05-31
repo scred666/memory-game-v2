@@ -40,19 +40,19 @@ const createComponent = ({
 
 describe('AppEmojiItem', () => {
   it('renders properly', () => {
-    const wrapper = createComponent()
+    const wrapper: ExtendedVueWrapper = createComponent()
 
     expect(wrapper.exists()).toBeTruthy()
   })
 
   it('emoji is not shown by default', () => {
-    const wrapper = createComponent()
+    const wrapper: ExtendedVueWrapper = createComponent()
 
     expect(wrapper.findComponentByTestId(APP_TEST_IDS.EMOJI_ITEM_LABEL).text()).toBe('')
   })
 
   it('emoji is show for solved item', () => {
-    const wrapper = createComponent({ isSolved: true })
+    const wrapper: ExtendedVueWrapper = createComponent({ isSolved: true })
 
     expect(wrapper.findComponentByTestId(APP_TEST_IDS.EMOJI_ITEM_LABEL).text()).toBe(
       TEST_EMOJI_ITEM[EMOJI]
@@ -60,7 +60,7 @@ describe('AppEmojiItem', () => {
   })
 
   it('emoji is show for active item', () => {
-    const wrapper = createComponent({
+    const wrapper: ExtendedVueWrapper = createComponent({
       modelValue: [
         'a',
         'b',
@@ -88,7 +88,7 @@ describe('AppEmojiItem', () => {
   })
 
   it('should emit correct event on click', () => {
-    const wrapper = createComponent()
+    const wrapper: ExtendedVueWrapper = createComponent()
 
     wrapper.findByTestId(APP_TEST_IDS.EMOJI_ITEM_INPUT).setChecked()
 
@@ -99,7 +99,7 @@ describe('AppEmojiItem', () => {
   })
 
   it(`shouldn't emit event on click if item is disabled`, () => {
-    const wrapper = createComponent({ isDisabled: true })
+    const wrapper: ExtendedVueWrapper = createComponent({ isDisabled: true })
 
     wrapper.findByTestId(APP_TEST_IDS.EMOJI_ITEM_INPUT).setChecked()
     const emitted = wrapper.emitted<'update:model-value'>()

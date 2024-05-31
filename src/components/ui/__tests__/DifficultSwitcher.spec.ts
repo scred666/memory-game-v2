@@ -26,13 +26,13 @@ const createComponent = (
 
 describe('DifficultSwitcher', () => {
   it('renders properly', () => {
-    const wrapper = createComponent()
+    const wrapper: ExtendedVueWrapper = createComponent()
 
     expect(wrapper.exists()).toBeTruthy()
   })
 
   it('renders correct count of difficulty buttons', () => {
-    const wrapper = createComponent()
+    const wrapper: ExtendedVueWrapper = createComponent()
 
     expect(wrapper.findAllByTestId(APP_TEST_IDS.DIFFICULT_SWITCHER_INPUT)).toHaveLength(
       Object.keys(DIFFICULTIES).length
@@ -54,7 +54,7 @@ describe('DifficultSwitcher', () => {
     `set localValue correctly for modalValue %j`,
     (testCase: string) => {
       const spy = vi.spyOn(console, 'warn')
-      const wrapper = createComponent({
+      const wrapper: ExtendedVueWrapper = createComponent({
         modelValue: testCase
       })
 
@@ -116,7 +116,7 @@ describe('DifficultSwitcher', () => {
     .reverse() as EmitTestCase[]
 
   it('should emit `update:model-value` with for each button correctly', () => {
-    const wrapper = createComponent()
+    const wrapper: ExtendedVueWrapper = createComponent()
 
     const inputs = wrapper.findAllByTestId(APP_TEST_IDS.DIFFICULT_SWITCHER_INPUT)
 
@@ -133,7 +133,7 @@ describe('DifficultSwitcher', () => {
   })
 
   it('createId() works correctly', () => {
-    const wrapper = createComponent()
+    const wrapper: ExtendedVueWrapper = createComponent()
 
     const inputs = wrapper.findAllByTestId(APP_TEST_IDS.DIFFICULT_SWITCHER_INPUT)
 

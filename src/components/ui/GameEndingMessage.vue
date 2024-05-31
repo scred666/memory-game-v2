@@ -1,6 +1,6 @@
 <template>
   <GameEndingMessage>
-    <slot> 🎉 Congratulations! 🥳</slot>
+    <slot>🎉 Congratulations! 🥳</slot>
   </GameEndingMessage>
 </template>
 
