@@ -44,16 +44,19 @@
 
 <script lang="ts" setup>
 import { isEmpty, isEqual } from 'lodash-es'
-import { computed, type ComputedRef, type PropType, ref, watch } from 'vue'
+import { computed, type ComputedRef, defineAsyncComponent, type PropType, ref, watch } from 'vue'
 
 import AppEmojiItem from '@/components/ui/AppEmojiItem.vue'
-import GameEndingMessage from '@/components/ui/GameEndingMessage.vue'
 import ReplayButton from '@/components/ui/ReplayButton.vue'
 import { type Difficult, DIFFICULTIES, DIFFICULTY_KEYS } from '@/utils/difficult-switcher'
 import { EMOJI_ITEM_KEYS, EMOJI_LIST, type EmojiItem } from '@/utils/emoji'
 import { shuffleArray, TIMEOUT_DELAY } from '@/utils/helpers'
 import { APP_TEST_IDS } from '@/utils/tests-helpers'
 import { uid } from '@/utils/uid'
+
+const GameEndingMessage = defineAsyncComponent(
+  () => import('@/components/ui/GameEndingMessage.vue')
+)
 
 defineOptions({
   name: 'AppEmojiPicker'

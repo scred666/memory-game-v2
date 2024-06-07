@@ -1,5 +1,7 @@
 # Memory Game @next 🚀
 
+[Live demo](https://scred666.github.io/demos/memory-game-next/)
+
 ## Type Support for `.vue` Imports in TS
 
 TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for
@@ -24,6 +26,7 @@ See [Vite Configuration Reference](https://vitejs.dev/config/).
 
 ```sh
 yarn install
+#or
 npm install
 ```
 
@@ -31,6 +34,7 @@ npm install
 
 ```sh
 yarn run serve
+#or
 npm run serve
 ```
 
@@ -38,6 +42,7 @@ npm run serve
 
 ```sh
 yarn run build
+#or
 npm run build
 ```
 
@@ -45,6 +50,7 @@ npm run build
 
 ```sh
 yarn run test:unit
+#or
 npm run test:unit
 ```
 
@@ -52,6 +58,7 @@ npm run test:unit
 
 ```sh
 yarn run test:unit --coverage
+#or
 npm run test:unit --coverage
 ```
 
@@ -59,5 +66,6 @@ npm run test:unit --coverage
 
 ```sh
 yarn run lint
+#or
 npm run lint
 ```
