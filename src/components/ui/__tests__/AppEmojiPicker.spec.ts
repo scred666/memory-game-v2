@@ -246,6 +246,7 @@ describe('AppEmojiPicker', () => {
       await wrapper.vm.$nextTick()
       pickEmojiByIndex({ index: TOTAL_COUNT * 2 - 1, wrapper })
       await wrapper.vm.$nextTick()
+      await vi.dynamicImportSettled()
 
       expect(wrapper.findByTestId(APP_TEST_IDS.WIN_MESSAGE).exists()).toBeTruthy()
       expect(wrapper.findByTestId(APP_TEST_IDS.LOSE_MESSAGE).exists()).toBeFalsy()
@@ -271,6 +272,7 @@ describe('AppEmojiPicker', () => {
       }
 
       await wrapper.vm.$nextTick()
+      await vi.dynamicImportSettled()
 
       expect(wrapper.findByTestId(APP_TEST_IDS.WIN_MESSAGE).exists()).toBeFalsy()
       expect(wrapper.findByTestId(APP_TEST_IDS.LOSE_MESSAGE).exists()).toBeTruthy()
@@ -313,6 +315,7 @@ describe('AppEmojiPicker', () => {
         pickEmojiByIndex({ index: TOTAL_COUNT * 2 - i, wrapper })
         await wrapper.vm.$nextTick()
       }
+      await vi.dynamicImportSettled()
 
       expect(wrapper.findByTestId(APP_TEST_IDS.WIN_MESSAGE).exists()).toBeTruthy()
       expect(wrapper.findByTestId(APP_TEST_IDS.LOSE_MESSAGE).exists()).toBeFalsy()
