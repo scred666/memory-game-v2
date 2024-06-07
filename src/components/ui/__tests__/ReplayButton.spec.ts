@@ -1,6 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { isUndefined } from 'lodash-es'
 import { describe, it, expect } from 'vitest'
+import type { ComponentPublicInstance } from 'vue'
 
 import { extendedWrapper, type ExtendedVueWrapper } from '@/utils/vitest.js'
 
@@ -35,6 +36,10 @@ const createComponent = ({
     })
   )
 }
+
+type ReplayButtonInstance = ComponentPublicInstance<{
+  onClick: () => void
+}>
 
 describe('ReplayButton', () => {
   it('renders properly', () => {
@@ -81,7 +86,17 @@ describe('ReplayButton', () => {
     await wrapper.vm.$nextTick()
 
     const emitted = wrapper.emitted<'click'>()
+    expect(emitted?.['click']).toBeUndefined()
+  })
 
+  it(`shouldn't emit click event if button is disabled but user remove disabled attr from inspector`, async () => {
+    const wrapper: ExtendedVueWrapper = createComponent({ disabled: true })
+    const vm = wrapper.vm as ReplayButtonInstance
+
+    vm.onClick()
+    await wrapper.vm.$nextTick()
+
+    const emitted = wrapper.emitted<'click'>()
     expect(emitted?.['click']).toBeUndefined()
   })
 })

@@ -5,9 +5,9 @@
 </template>
 
 <script lang="ts" setup>
-import type { Component } from 'vue'
 import type { SetupContext } from 'vue'
 import type { ComponentInternalInstance } from 'vue'
+import { type Component } from 'vue'
 import { getCurrentInstance, h, type VNode } from 'vue'
 
 import ReplayButton from '@/components/ui/ReplayButton.vue'
@@ -24,16 +24,19 @@ const onClick = (): void => {
   emit('replay')
 }
 
-const GameEndingMessage = (_: Component, { slots }: SetupContext) => {
+const GameEndingMessage = (_: Component, { slots, attrs }: SetupContext) => {
   const currentInstance = getCurrentInstance() as ComponentInternalInstance
   const vnode = currentInstance.vnode as VNode
   const { scopeId } = vnode
-  const scopeIdAttribute: Record<string, string> = scopeId ? { [scopeId]: '' } : {}
+  const scopeIdAttribute: Record<string, string> = scopeId
+    ? { [scopeId]: '' }
+    : /* istanbul ignore next */ {} // ignored because it's impossible to mock getCurrentInstance declared as Object.defineProperty
 
   return h(
     'div',
     {
-      class: 'gem-Message'
+      class: 'gem-Message',
+      ...attrs
     },
     h(
       'div',
