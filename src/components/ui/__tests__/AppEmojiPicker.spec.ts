@@ -1,15 +1,12 @@
 import { mount } from '@vue/test-utils'
-import { describe, it, expect, vi, test, type SpyInstance } from 'vitest'
+import { describe, it, expect, vi, type SpyInstance } from 'vitest'
 import { type ComponentPublicInstance } from 'vue'
 
 import { extendedWrapper, type ExtendedVueWrapper } from '@/utils/vitest.js'
 
 import AppEmojiPicker from '@/components/ui/AppEmojiPicker.vue'
-import DifficultSwitcher from '@/components/ui/DifficultSwitcher.vue'
 import { type Difficult, DIFFICULTIES, DIFFICULTY_KEYS } from '@/utils/difficult-switcher'
-import { shuffleArray } from '@/utils/helpers'
 import * as helpers from '@/utils/helpers'
-import { roundUp } from '@/utils/round-up'
 import { APP_TEST_IDS } from '@/utils/tests-helpers'
 
 const createComponent = (
