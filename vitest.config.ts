@@ -9,7 +9,8 @@ export default mergeConfig(
   defineConfig({
     test: {
       coverage: {
-        provider: 'istanbul' // or 'v8'
+        provider: 'istanbul', // or 'v8'
+        exclude: ['src/utils/vitest.ts']
       },
       environment: 'jsdom',
       exclude: [...configDefaults.exclude, 'e2e/*'],

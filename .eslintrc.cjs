@@ -14,6 +14,7 @@ module.exports = {
   },
   plugins: ['import'],
   rules: {
+    '@typescript-eslint/no-unused-vars': 'error',
     'no-underscore-dangle': 'off',
     'import/no-extraneous-dependencies': 'off',
     'import/extensions': [

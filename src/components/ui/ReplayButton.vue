@@ -1,11 +1,18 @@
 <template>
-  <button :disabled="disabled" class="rb-Button" @click="onClick">
+  <button
+    :data-test-id="APP_TEST_IDS.REPLAY_BUTTON"
+    :disabled="disabled"
+    class="rb-Button"
+    @click="onClick"
+  >
     <slot>New Game</slot>
   </button>
 </template>
 
 <script lang="ts" setup>
 import type { PropType } from 'vue'
+
+import { APP_TEST_IDS } from '@/utils/tests-helpers'
 
 defineOptions({
   name: 'ReplayButton'

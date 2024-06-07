@@ -1,6 +1,6 @@
 <template>
   <div class="aem-Toolbar">
-    <div class="aep-Toolbar_Counter">
+    <div :data-test-id="APP_TEST_IDS.EMOJI_PICKER_SOLVED_COUNTER" class="aep-Toolbar_Counter">
       {{ solvedItems.length }} / {{ currentDifficult[DIFFICULTY_KEYS.COUNT] }}
     </div>
 
@@ -8,11 +8,16 @@
       Restart 🎲
     </ReplayButton>
 
-    <div class="aep-Toolbar_Counter">
+    <div :data-test-id="APP_TEST_IDS.EMOJI_PICKER_ATTEMPTS_COUNTER" class="aep-Toolbar_Counter">
       {{ availableAttempts }}
     </div>
   </div>
-  <div :style="{ '--color': `var(${currentDifficult[DIFFICULTY_KEYS.COLOR]})` }" class="aep-Picker">
+
+  <div
+    :data-test-id="APP_TEST_IDS.EMOJI_PICKER"
+    :style="{ '--color': `var(${currentDifficult[DIFFICULTY_KEYS.COLOR]})` }"
+    class="aep-Picker"
+  >
     <AppEmojiItem
       v-for="item in normalizedEmojiList"
       :key="item[PUBLIC_ID]"
@@ -24,9 +29,11 @@
   </div>
 
   <transition-group name="end-message">
-    <GameEndingMessage v-if="isGameWin" @replay="replay" />
+    <GameEndingMessage v-if="isGameWin" :data-test-id="APP_TEST_IDS.WIN_MESSAGE" @replay="replay" />
+
     <GameEndingMessage
       v-else-if="isGameLose"
+      :data-test-id="APP_TEST_IDS.LOSE_MESSAGE"
       style="--theme-color: var(--vt-c-red)"
       @replay="replay"
     >
@@ -36,15 +43,16 @@
 </template>
 
 <script lang="ts" setup>
-import { isEmpty } from 'lodash-es'
+import { isEmpty, isEqual } from 'lodash-es'
 import { computed, type ComputedRef, type PropType, ref, watch } from 'vue'
 
 import AppEmojiItem from '@/components/ui/AppEmojiItem.vue'
 import GameEndingMessage from '@/components/ui/GameEndingMessage.vue'
 import ReplayButton from '@/components/ui/ReplayButton.vue'
-import { type Difficult, DIFFICULTY_KEYS } from '@/utils/difficult-switcher'
+import { type Difficult, DIFFICULTIES, DIFFICULTY_KEYS } from '@/utils/difficult-switcher'
 import { EMOJI_ITEM_KEYS, EMOJI_LIST, type EmojiItem } from '@/utils/emoji'
 import { shuffleArray, TIMEOUT_DELAY } from '@/utils/helpers'
+import { APP_TEST_IDS } from '@/utils/tests-helpers'
 import { uid } from '@/utils/uid'
 
 defineOptions({
@@ -54,7 +62,11 @@ defineOptions({
 const props = defineProps({
   currentDifficult: {
     type: Object as PropType<Difficult>,
-    required: true
+    default: DIFFICULTIES.EASY,
+    required: true,
+    validator: (v: Difficult): boolean => {
+      return Object.values(DIFFICULTIES).some(difficult => isEqual(difficult, v))
+    }
   }
 })
 
@@ -131,8 +143,8 @@ const isGameLose = computed(() => {
 
 const usedAttempts = ref<number>(0)
 
-watch(selectedItems, () => {
-  if (isSelectionComplete.value) {
+watch(isSelectionComplete, newValue => {
+  if (newValue) {
     usedAttempts.value += 1
     const [first, second] = selectedItems.value
 
@@ -144,7 +156,11 @@ watch(selectedItems, () => {
       item => item[PUBLIC_ID] === second
     ) as EmojiItem
 
-    if (originalFirst[PRIVATE_ID] === originalSecond[PRIVATE_ID]) {
+    if (
+      originalFirst &&
+      originalSecond &&
+      originalFirst[PRIVATE_ID] === originalSecond[PRIVATE_ID]
+    ) {
       solvedItems.value = [...solvedItems.value, originalFirst[PRIVATE_ID]]
       selectedItems.value = []
     } else {
