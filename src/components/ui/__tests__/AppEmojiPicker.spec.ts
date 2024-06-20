@@ -9,15 +9,13 @@ import { type Difficult, DIFFICULTIES, DIFFICULTY_KEYS } from '@/utils/difficult
 import * as helpers from '@/utils/helpers'
 import { APP_TEST_IDS } from '@/utils/tests-helpers'
 
-const createComponent = (
-  {
-    currentDifficult
-  }: {
-    currentDifficult: Difficult
-  } = {
-    currentDifficult: DIFFICULTIES.EASY
-  }
-): ExtendedVueWrapper => {
+interface CreateComponentOptions {
+  currentDifficult?: Difficult
+}
+
+const createComponent = ({
+  currentDifficult = DIFFICULTIES.EASY
+}: CreateComponentOptions = {}): ExtendedVueWrapper => {
   return extendedWrapper(
     mount(AppEmojiPicker, {
       propsData: {
@@ -98,7 +96,7 @@ describe('AppEmojiPicker', () => {
     index: number
     wrapper: ExtendedVueWrapper
   }): void => {
-    wrapper.findAllByTestId(APP_TEST_IDS.EMOJI_ITEM_INPUT).at(index).setChecked()
+    wrapper.findAllByTestId(APP_TEST_IDS.EMOJI_ITEM_INPUT).at(index)!.setChecked()
   }
 
   describe('toolbar items', () => {

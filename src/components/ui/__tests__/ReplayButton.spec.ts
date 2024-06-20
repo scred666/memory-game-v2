@@ -8,33 +8,28 @@ import { extendedWrapper, type ExtendedVueWrapper } from '@/utils/vitest.js'
 import ReplayButton from '@/components/ui/ReplayButton.vue'
 import { APP_TEST_IDS } from '@/utils/tests-helpers'
 
+interface CreateComponentOptions {
+  disabled?: boolean
+  slotContent?: string
+}
+
 const createComponent = ({
   disabled = false,
   slotContent
-}: {
-  disabled?: boolean
-  slotContent?: string
-} = {}): ExtendedVueWrapper => {
-  if (!isUndefined(slotContent)) {
-    return extendedWrapper(
-      mount(ReplayButton, {
-        propsData: {
-          disabled
-        },
-        slots: {
-          default: slotContent
-        }
-      })
-    )
+}: CreateComponentOptions = {}): ExtendedVueWrapper => {
+  const options: any = {
+    propsData: {
+      disabled
+    }
   }
 
-  return extendedWrapper(
-    mount(ReplayButton, {
-      propsData: {
-        disabled
-      }
-    })
-  )
+  if (!isUndefined(slotContent)) {
+    options.slots = {
+      default: slotContent
+    }
+  }
+
+  return extendedWrapper(mount(ReplayButton, options))
 }
 
 type ReplayButtonInstance = ComponentPublicInstance<{

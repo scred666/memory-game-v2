@@ -8,13 +8,13 @@ import DifficultSwitcher from '@/components/ui/DifficultSwitcher.vue'
 import { DIFFICULTIES, DIFFICULTY_KEYS } from '@/utils/difficult-switcher'
 import { APP_TEST_IDS } from '@/utils/tests-helpers'
 
-const createComponent = (
-  {
-    modelValue
-  }: {
-    modelValue: string
-  } = { modelValue: DIFFICULTIES.EASY[DIFFICULTY_KEYS.NAME] }
-): ExtendedVueWrapper => {
+interface CreateComponentOptions {
+  modelValue?: string
+}
+
+const createComponent = ({
+  modelValue = DIFFICULTIES.EASY[DIFFICULTY_KEYS.NAME]
+}: CreateComponentOptions = {}): ExtendedVueWrapper => {
   return extendedWrapper(
     mount(DifficultSwitcher, {
       propsData: {
@@ -121,7 +121,7 @@ describe('DifficultSwitcher', () => {
     const inputs = wrapper.findAllByTestId(APP_TEST_IDS.DIFFICULT_SWITCHER_INPUT)
 
     emitTestCases.forEach(({ testCase, index }, loopIndex) => {
-      inputs.at(index).trigger('change')
+      inputs.at(index)!.trigger('change')
 
       expect(wrapper.emitted<'update:model-value'>()!['update:model-value']).toHaveLength(
         loopIndex + 1

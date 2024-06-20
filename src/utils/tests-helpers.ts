@@ -10,3 +10,8 @@ export const APP_TEST_IDS = {
   WIN_MESSAGE: 'win-message',
   LOSE_MESSAGE: 'lose-message'
 } as const
+
+export const TEST_CASES_KEYS = {
+  VALUE: 'value',
+  EXPECTED: 'expected'
+} as const

@@ -28,7 +28,9 @@ const GameEndingMessage = (_: Component, { slots, attrs }: SetupContext) => {
   const currentInstance = getCurrentInstance() as ComponentInternalInstance
   const vnode = currentInstance.vnode as VNode
   const { scopeId } = vnode
-  const scopeIdAttribute: Record<string, string> = scopeId
+
+  type ScopeIdAttribute = { [key: string]: '' }
+  const scopeIdAttribute: ScopeIdAttribute = scopeId
     ? { [scopeId]: '' }
     : /* istanbul ignore next */ {} // ignored because it's impossible to mock getCurrentInstance declared as Object.defineProperty
 

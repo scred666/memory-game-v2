@@ -15,17 +15,19 @@ const TEST_EMOJI_ITEM: EmojiItem = {
   [PRIVATE_ID]: 'test-privateId'
 } as const
 
+interface CreateComponentOptions {
+  item?: EmojiItem
+  isDisabled?: boolean
+  modelValue?: string[]
+  isSolved?: boolean
+}
+
 const createComponent = ({
   item = TEST_EMOJI_ITEM,
   isDisabled = false,
   modelValue = [],
   isSolved = false
-}: Partial<{
-  item: EmojiItem
-  isDisabled: boolean
-  modelValue: string[]
-  isSolved: boolean
-}> = {}): ExtendedVueWrapper => {
+}: CreateComponentOptions = {}): ExtendedVueWrapper => {
   return extendedWrapper(
     mount(AppEmojiItem, {
       propsData: {
@@ -46,7 +48,7 @@ describe('AppEmojiItem', () => {
   })
 
   it('emoji is not shown by default', () => {
-    const wrapper: ExtendedVueWrapper = createComponent()
+    const wrapper: ExtendedVueWrapper = createComponent({})
 
     expect(wrapper.findComponentByTestId(APP_TEST_IDS.EMOJI_ITEM_LABEL).text()).toBe('')
   })

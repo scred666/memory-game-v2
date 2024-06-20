@@ -30,7 +30,12 @@
 <script lang="ts" setup>
 import { computed, type PropType } from 'vue'
 
-import { DIFFICULTIES, type Difficult, DIFFICULTY_KEYS } from '@/utils/difficult-switcher'
+import {
+  DIFFICULTIES,
+  type Difficult,
+  DIFFICULTY_KEYS,
+  type DifficultName
+} from '@/utils/difficult-switcher'
 import { APP_TEST_IDS } from '@/utils/tests-helpers'
 
 const { COLOR, NAME } = DIFFICULTY_KEYS
@@ -41,7 +46,7 @@ defineOptions({
 
 const props = defineProps({
   modelValue: {
-    type: String as PropType<string>,
+    type: String as PropType<DifficultName>,
     required: true,
     validator: (v: string): boolean => {
       return Object.values(DIFFICULTIES).some(difficult => difficult[DIFFICULTY_KEYS.NAME] === v)
@@ -52,12 +57,12 @@ const props = defineProps({
 const createId = ({ difficult }: { difficult: Difficult }): string => `difficult-${difficult[NAME]}`
 
 const emit = defineEmits<{
-  'update:model-value': [value: string]
+  'update:model-value': [value: DifficultName]
 }>()
 
-const localValue = computed<string>({
-  get: (): string => props.modelValue,
-  set: (value: string): void => {
+const localValue = computed<DifficultName>({
+  get: (): DifficultName => props.modelValue,
+  set: (value: DifficultName): void => {
     emit('update:model-value', value)
   }
 })

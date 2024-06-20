@@ -54,3 +54,6 @@ export const DIFFICULTIES: Record<string, Difficult> = {
     ...calculateQuantities(EMOJI_LIST.length)
   }
 } as const
+
+export type DifficultName =
+  (typeof DIFFICULTIES)[keyof typeof DIFFICULTIES][typeof DIFFICULTY_KEYS.NAME]

@@ -10,13 +10,18 @@ import { computed, type ComputedRef, ref } from 'vue'
 
 import AppEmojiPicker from '@/components/ui/AppEmojiPicker.vue'
 import DifficultSwitcher from '@/components/ui/DifficultSwitcher.vue'
-import { type Difficult, DIFFICULTIES, DIFFICULTY_KEYS } from '@/utils/difficult-switcher'
+import {
+  type Difficult,
+  DIFFICULTIES,
+  type DifficultName,
+  DIFFICULTY_KEYS
+} from '@/utils/difficult-switcher'
 
 defineOptions({
   name: 'MainLayout'
 })
 
-const currentDifficult = ref<string>(DIFFICULTIES.EASY[DIFFICULTY_KEYS.NAME])
+const currentDifficult = ref<DifficultName>(DIFFICULTIES.EASY[DIFFICULTY_KEYS.NAME])
 
 const difficultOptions = computed(() => {
   return (

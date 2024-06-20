@@ -1,11 +1,11 @@
 import { describe, expect, test } from 'vitest'
 
 import { roundUp, type RoundUpOptions } from '@/utils/round-up'
-import { TEST_CASES_KEYS } from '@/utils/vitest'
+import { TEST_CASES_KEYS } from '@/utils/tests-helpers'
 
 const { VALUE, EXPECTED } = TEST_CASES_KEYS
 
-interface TestRoundUpOptions extends RoundUpOptions {
+interface TestRoundUpOptions extends Partial<RoundUpOptions> {
   [EXPECTED]: number
 }
 
@@ -15,6 +15,9 @@ const MULTIPLIER = 'multiplier'
 
 describe('roundUp()', () => {
   const testCases: TestRoundUpOptions[] = [
+    {
+      [EXPECTED]: 0
+    },
     {
       [VALUE]: 1,
       [EXPECTED]: 50
@@ -101,23 +104,19 @@ describe('roundUp()', () => {
       [MULTIPLIER]: -Infinity,
       [EXPECTED]: COMMON_VALUE
     },
-
     {
       [VALUE]: COMMON_VALUE,
       [MULTIPLIER]: 0.5,
       [EXPECTED]: COMMON_VALUE
     },
-
     {
       [VALUE]: Infinity,
       [EXPECTED]: Infinity
     },
-
     {
       [VALUE]: -Infinity,
       [EXPECTED]: -Infinity
     },
-
     {
       [VALUE]: Infinity,
       [MULTIPLIER]: 100,
